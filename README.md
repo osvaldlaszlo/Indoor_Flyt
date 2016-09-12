@@ -4,7 +4,7 @@ This repo is the port of flyt, configurations and informations for the original 
 ## Installation
 
 - Write FlytOS image on the eMMC
-- Replace the [boot.ini](root/boot.ini) file to match the screen configuration
+- Replace the [boot.ini](tree/master/root/boot.ini) file to match the screen configuration
 - boot
 - user : flytpod:flytpod
 - root : root:flyfly
@@ -30,13 +30,22 @@ sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get dist-upgrade
 
-apt-get install ros-indigo-image-proc ros-indigo-image-transport-plugins ros-indigo-image-transport ros-indigo-rosbridge-suite ros-indigo-control-toolbox ros-indigo-octomap-ros ros-indigo-octomap-msgs libgoogle-glog-dev ros-indigo-pyros-setup ros-indigo-eigen-conversions python-serial python-flask python-wtforms python-sqlalchemy python-concurrent.futures python-mock python-zmq python-twisted tmux
+apt-get install ros-indigo-image-proc ros-indigo-image-transport-plugins ros-indigo-image-transport ros-indigo-rosbridge-suite ros-indigo-control-toolbox ros-indigo-octomap-ros ros-indigo-octomap-msgs libgoogle-glog-dev ros-indigo-pyros-setup ros-indigo-eigen-conversions python-serial python-flask python-wtforms python-sqlalchemy python-concurrent.futures python-mock python-zmq python-twisted
+
+# additionnal packages missing from FlytOS
+apt-get install tmux ros-indigo-usb-cam
 
 pip install flask-security
 
 dpkg -i flytsim_0.4-3_amd64.deb
-```
 
+# default system_id of FlytOS is 20, for QGround, it is 255
+# don't forget to put your namespace here
+rosparam set /namespace/mavros/system_id 255
+rosparam set /namespace/mavros/component_id 0
+rosparam set /namespace/mavros/target_system_id 1
+rosparam set /namespace/mavros/target_component_id 1
+```
   - Add additionnal configuration
 
 ## More FLYT configurations
@@ -44,6 +53,10 @@ dpkg -i flytsim_0.4-3_amd64.deb
 ### Modify global namespace
 
 You may want to change the namespace at the first line of `/flyt/flytos/flytcore/share/core_api/param_files/global_namespace.yaml`
+
+### Mavros plugins
+
+Enable and disable mavros plugins by commenting with `<!-- -->` the XML plugin files at `/flyt/flytos/flytcore/share/mavros/mavros_plugins.xml` and `/flyt/flytos/flytcore/share/mavros_extras/mavros_plugins.xml`
 
 ### Aliases
 
@@ -53,6 +66,10 @@ You should add aliases for easier use in .bash_aliases
 alias flyt_start='sudo $(rospack find core_api)/scripts/start_flytOS.sh'
 alias flyt_kill='sudo $(rospack find core_api)/scripts/kill_flytOS.sh'
 ```
+
+### Camera
+
+See [Camera folder](tree/master/Camera)
 
 ### Launch files
 
