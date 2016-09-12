@@ -37,20 +37,22 @@ pip install flask-security
 dpkg -i flytsim_0.4-3_amd64.deb
 ```
 
-- Add additionnal configuration
+  - Add additionnal configuration
 
 ## More FLYT configurations
 
 ### Modify global namespace
 
-You have to change the namespace on the namespace (flytpod) on the last line of `/flyt/flytos/flytcore/share/core_api/param_files/flyt_params.yaml` and on the first line of `/flyt/flytos/flytcore/share/core_api/param_files/global_namespace.yaml`
+You may want to change the namespace at the first line of `/flyt/flytos/flytcore/share/core_api/param_files/global_namespace.yaml`
 
 ### Aliases
 
 You should add aliases for easier use in .bash_aliases
 
-> alias flyt_start='sudo $(rospack find core_api)/scripts/start_flytOS.sh'
-> alias flyt_kill='sudo $(rospack find core_api)/scripts/kill_flytOS.sh'
+```
+alias flyt_start='sudo $(rospack find core_api)/scripts/start_flytOS.sh'
+alias flyt_kill='sudo $(rospack find core_api)/scripts/kill_flytOS.sh'
+```
 
 ### Launch files
 
